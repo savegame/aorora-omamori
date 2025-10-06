@@ -1,5 +1,3 @@
 build/*
 *.a
 *.o
-game/*
-game*

@@ -1,9 +1,9 @@
 %define _app_orgname ru.sashikknox
-%define _app_appname AwesomeGame
-%define _app_launcher_name Офигенная игра
+%define _app_appname omamori
+%define _app_launcher_name Omamori
 
 Name:       %{_app_orgname}.%{_app_appname}
-Summary:    Love2D Game Example for AuroraOS
+Summary:    Omamori for AuroraOS
 Release:    1
 Version:    1.0.0
 Group:      Amusements/Games
@@ -37,7 +37,7 @@ BuildRequires: ninja
 BuildRequires: lua
 
 %description
-"Game example for AuroraOS made with LÖVE engine"
+A remote village, whose people suffer from their daily problems and concerns.
 
 %prep
 %setup -q -n %{name}-%{version}

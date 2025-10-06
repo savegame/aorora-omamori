@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=__LAUNCHER_NAME__
-Comment=Awesome game with Love
+Comment=Omamori
 MimeType=application/x-love-game;
 Type=Application
 Categories=Game;
@@ -13,9 +13,5 @@ Permissions=Internet;Audio
 OrganizationName=__ORGNAME__
 ApplicationName=__APPNAME__
 
-[X-Aurora-SplashScreen]
-GradientStartColor=#B90E0E
-GradientEndColor=#80B9F5
-
 [X-Aurora-Application]
-Orientation=Landscape
+Orientation=LandscapeInverted;Landscape
