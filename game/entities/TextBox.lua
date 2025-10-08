@@ -18,7 +18,8 @@ local Dialog = class { __includes = chain.Chain,
 	onUpdate = function(self, dt)
 		self.currentCharacters = self.currentCharacters + dt * self.charsPerSecond
     self.textbox.text = string.sub(self.text, 0, math.floor(self.currentCharacters))
-    if love.keyboard.isDown(keys.A) and self.currentCharacters >= string.len(self.text) then
+    local isDownA = love.keyboard.isDown(keys.A) or touchButtons.button_A.pressed
+    if isDownA and self.currentCharacters >= string.len(self.text) then
       self:complete()
     end
 	end,

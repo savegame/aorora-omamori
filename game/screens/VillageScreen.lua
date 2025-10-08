@@ -223,4 +223,12 @@ function VillageScreen:keyreleased(key)
 	self:input({ type = "released", key = key})
 end
 
+function VillageScreen:touchpressed(id, x, y, dx, dy, pressure)
+	self:input({ type = "pressed", key = "touch"})
+end
+
+function VillageScreen:touchreleased(id, x, y, dx, dy, pressure)
+	self:input({ type = "released", key = "touch"})
+end
+
 return VillageScreen

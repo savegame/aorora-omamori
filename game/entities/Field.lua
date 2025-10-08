@@ -28,8 +28,8 @@ local Field = class {
 			vec2 origin_pixel_coords = vec2(origin_pixel.x / screen_size.x, origin_pixel.y / screen_size.y);
 			vec2 origin = vec2((texture_coords.x * iw - qx) / qw, (texture_coords.y * ih - qy) / qh);
 
-			if (Texel(grass, origin_pixel_coords).a > 0) {
-				if (gr.a > 0 && quad_coords.y > 0.65 && quad_coords.x >= 0) {
+			if (Texel(grass, origin_pixel_coords).a > 0.0) {
+				if (gr.a > 0.0 && quad_coords.y > 0.65 && quad_coords.x >= 0.0) {
 					pixel = vec4(0.0, 0.0, 0.0, 0.0);
 				}
 			}
@@ -219,7 +219,7 @@ function Field:draw()
 	love.graphics.translate(-gX, -gY)
 	self.clouds:drawShadow()
 	love.graphics.setShader(self.grassShadowShader)
-	self.grassShadowShader:send("screen_size", { 320, 240 })
+	self.grassShadowShader:send("screen_size", { canvasSize.x, canvasSize.y })
 	self.grassShadowShader:send('grass', self.grassCanvas)
 	for _, obj in ipairs(self.objects) do
 		if obj["drawShadow"] ~= nil then
@@ -262,10 +262,10 @@ function Field:draw()
 	--	entity.y = entity.y - 0.5 / i
 	--end
 
-	self.grassPitShader:send("screen_size", { 320, 240 })
+	self.grassPitShader:send("screen_size", { canvasSize.x, canvasSize.y })
 	self.grassPitShader:send('grass', self.grassCanvas)
 	love.graphics.setShader(self.onGrassShader)
-	self.onGrassShader:send("screen_size", { 320, 240 })
+	self.onGrassShader:send("screen_size", { canvasSize.x, canvasSize.y })
 	self.onGrassShader:send("grass", self.grassCanvas)
 	for _, obj in ipairs(self.objects) do
 		if obj["draw"] ~= nil then

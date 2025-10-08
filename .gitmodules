@@ -8,9 +8,9 @@
 	branch = master
 [submodule "love"]
 	path = love
-	url = git@github.com:savegame/love.git
+	url = https://github.com/savegame/love.git
 	branch = 12_sailfish
 [submodule "libsdl"]
 	path = libsdl
-	url = git@github.com:savegame/SDL.git
+	url = https://github.com/savegame/SDL.git
 	branch = auroraos-sdl2

@@ -10,7 +10,7 @@ function StatementLabel:init(font)
   self.y = 0
   self.font = font
   self.patch = patchy.load('assets/images/statement_label.png')
-  self.bgX = 320 + 16
+  self.bgX = canvasSize.x + 16
   self.alpha = 0
   self.textAlpha = 0
 
@@ -22,14 +22,14 @@ function StatementLabel:show(text)
   local c = chain.Instant(function()
     self.visible = true
     self.text = text
-    self.bgX = 320 + 16
+    self.bgX = canvasSize.x + 16
   end)
   c:push(chain.Tween(function(group)
     group:to(self, 0.5, { textAlpha = 255, alpha = 255, bgX = 0 - 16 })
   end))
   c:push(chain.Wait(3.0))
   c:push(chain.Tween(function(group)
-    group:to(self, 0.5, { textAlpha = 0, alpha = 0, bgX = -(320 + 16) })
+    group:to(self, 0.5, { textAlpha = 0, alpha = 0, bgX = -(canvasSize.x + 16) })
   end))
   c:push(chain.Instant(function()
     self.visible = false
@@ -45,11 +45,11 @@ function StatementLabel:draw()
   if self.visible then
     love.graphics.push('all')
     love.graphics.setColor(255, 255, 255, self.alpha * 0.8)
-    self.patch:draw(self.x + self.bgX, self.y + 120 - 16, 320 + 32, 32)
+    self.patch:draw(self.x + self.bgX, self.y + 120 - 16, canvasSize.x + 32, 32)
     local height = select(2, string.gsub(self.text, "\n", "")) * self.font:getHeight(self.text)
     love.graphics.setColor(255, 255, 255, self.textAlpha)
   	love.graphics.printf(self.text, self.x, self.y + 120 - height / 2.0 - 6,
-      320, "center")
+      canvasSize.x, "center")
     love.graphics.pop()
   end
 end

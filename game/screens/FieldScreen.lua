@@ -133,7 +133,7 @@ function FieldScreen:activate()
 	self.night = self.night + 1
 
 	timer = TimerBox(fonts.medium)
-	timer.x, timer.y = 320 - 62, -4
+	timer.x, timer.y = canvasSize.x - 62, -4
 
 	timer.time = 300
 	spiritsCheckOrder = { "love", "success", "study", "wealth" }
@@ -239,6 +239,14 @@ end
 
 function FieldScreen:keyreleased(key)
 	self:input({ type = "released", key = key})
+end
+
+function FieldScreen:touchpressed(id, x, y, dx, dy, pressure)
+	self:input({ type = "pressed", key = "touch"})
+end
+
+function FieldScreen:touchreleased(id, x, y, dx, dy, pressure)
+	self:input({ type = "released", key = "touch"})
 end
 
 return FieldScreen

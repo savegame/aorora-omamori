@@ -20,4 +20,12 @@ function MainScreen:keypressed(key)
 	end
 end
 
+function MainScreen:touchpressed(id, x, y, dx, dy, pressure)
+	self:input({ type = "pressed", key = "touch"})
+end
+
+function MainScreen:touchreleased(id, x, y, dx, dy, pressure)
+	self:input({ type = "released", key = "touch"})
+end
+
 return MainScreen

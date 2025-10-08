@@ -22,8 +22,8 @@ function Pointer:update(dt)
 			math.floor(self.following.y + self.followOffset.y + 0.5)
 	end
 	if self.bounds then
-		self.x = math.max(self.bounds.x + 160-16, math.min(self.x, self.bounds.x + self.bounds.width - 160-16))
-		self.y = math.max(self.bounds.y + 120 - 16, math.min(self.y, self.bounds.y + self.bounds.height - 120 - 16))
+		self.x = math.max(self.bounds.x + canvasSize.x * 0.5 - 16, math.min(self.x, self.bounds.x + self.bounds.width - canvasSize.x * 0.5 - 16))
+		self.y = math.max(self.bounds.y + canvasSize.y * 0.5 - 16, math.min(self.y, self.bounds.y + self.bounds.height - canvasSize.y * 0.5 - 16))
 	end
 	--self.tweens:update(dt)
 	--self.sprite.animation:update(dt)

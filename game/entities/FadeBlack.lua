@@ -20,7 +20,8 @@ local Dialog = class { __includes = chain.Chain,
 	onUpdate = function(self, dt)
 		self.currentCharacters = self.currentCharacters + dt * self.charsPerSecond
     self.textbox.text = string.sub(self.text, 0, math.floor(self.currentCharacters))
-    if love.keyboard.isDown(keys.A) and self.currentCharacters >= string.len(self.text) then
+    local isDownA = love.keyboard.isDown(keys.A) or touchButtons.button_A.pressed
+    if isDownA and self.currentCharacters >= string.len(self.text) then
       self:complete()
     end
 	end,
@@ -99,11 +100,12 @@ function FadeBlack:draw()
     local width = self.font:getWidth(self.text)
     local height = select(2, string.gsub(self.text, "\n", "")) * self.font:getHeight(self.text)
     --local x = math.floor(self.x - (self.left + self.right + width) / 2 + 0.5)
-    local x = self.x - (self.left + self.right + width) / 2
+    -- local x = self.x - (self.left + self.right + width) * 0.5
+    local x = (canvasSize.x - width) * 0.5
     local w = self.left + self.right + width
     --local w = math.floor(self.left + self.right + width + 0.5)
     love.graphics.setColor(255, 255, 255, self.textAlpha)
-  	love.graphics.printf(self.text, x + self.left, self.y - height / 2.0,
+  	love.graphics.printf(self.text, x, self.y - height * 0.5,
       width, "center")
     love.graphics.pop()
   end

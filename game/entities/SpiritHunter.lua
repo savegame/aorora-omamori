@@ -33,6 +33,10 @@ local function getInputDir()
   if love.keyboard.isDown(keys.DPad_up) then dir.y = dir.y - 1 end
   if love.keyboard.isDown(keys.DPad_left) then dir.x = dir.x - 1 end
   if love.keyboard.isDown(keys.DPad_down) then dir.y = dir.y + 1 end
+  if joystick.active then
+    dir.x = joystick.dx
+    dir.y = joystick.dy
+  end
   if dir:len() > 0 then dir = dir:normalized() end
   return dir
 end
@@ -160,16 +164,19 @@ function SpiritHunter:init()
           local dir = vector(0, 0)
           if self.controllable then
             local dir = getInputDir()
+            
             dir = vector(dir.x * self:getSpeed(self.speed), dir.y * self:getSpeed(self.speed))
   					self:move(vector(dir.x * dt, dir.y * dt))
-
-            if love.keyboard.isDown(keys.A) and self.interactable == nil then
+            local isDownA = love.keyboard.isDown(keys.A) or touchButtons.button_A.pressed
+            if isDownA and self.interactable == nil then
               return self.fsm:switch("attack")
             end
           end
 
           if self.velocity:len() > 0 then
-            if love.keyboard.isDown(keys.X) then
+            -- local isDownX = love.keyboard.isDown(keys.X) or touchButtons.button_X.pressed
+            local isDownX = love.keyboard.isDown(keys.X) or joystick.power >= 0.85
+            if isDownX then
               self:setAnimation("run")
               self.visibility = 2
               self.speed = self.runSpeed
@@ -238,18 +245,18 @@ function SpiritHunter:init()
             dir = self.flipped and vector(-1, 0) or vector(1, 0)
           end
           --if dir.x ~= 0 then self:setFlipped(dir.x < 0) end
-
-          if this.charge >= this.minCharge and not love.keyboard.isDown(keys.A) then
+          local isDownA = love.keyboard.isDown(keys.A) or touchButtons.button_A.pressed
+          if this.charge >= this.minCharge and not isDownA then
             local multiplier = math.min(1.0, 0.4 + (this.charge - this.minCharge) / (this.maxCharge - this.minCharge)*0.6)
             self.fsm:switch("slash", vector(dir.x * multiplier, dir.y * multiplier))
           end
         end,
 
     		input = function(this, event)
-          if event.type == "pressed" and event.key == keys.X
-              and this.dashTimer == 0 and self.controllable then
-            self.fsm:switch("dash", getInputDir())
-          end
+            if event.type == "pressed" and event.key == keys.X
+                and this.dashTimer == 0 and self.controllable then
+              self.fsm:switch("dash", getInputDir())
+            end
         end,
 
     		exited = function(this)

@@ -52,7 +52,7 @@ function OmamoriDisplayer:draw()
   if self.visible then
     love.graphics.push('all')
     love.graphics.setColor(255, 255, 255, self.alpha)
-    love.graphics.draw(self.image, self.types[self.type], self.x + 160, self.y + 120, 0,
+    love.graphics.draw(self.image, self.types[self.type], self.x + canvasSize.x * 0.5, self.y + canvasSize.y * 0.5, 0,
       self.scale, self.scale, 72, 64)
     love.graphics.pop()
   end

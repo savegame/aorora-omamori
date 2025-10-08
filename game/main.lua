@@ -36,115 +36,140 @@ local canvas
 
 canvasSize = { x = 320, y = 240 }
 fonts = { default = nil, medium = nil }
+buttons = require "buttons"
+joystick = require "joystick"
+
+touchButtons = {
+    button_A = { pressed = false }
+}
 
 gameState = nil
 
 globals = {
-	camera = nil,
-	player = nil,
-	queue = nil,
-	textbox = nil,
-	inventory = nil,
-	inspector = nil,
-	statement = nil,
-	omamori = nil,
-	fadeblack = nil
+    camera = nil,
+    player = nil,
+    queue = nil,
+    textbox = nil,
+    inventory = nil,
+    inspector = nil,
+    statement = nil,
+    omamori = nil,
+    fadeblack = nil
 }
 
 assets = {
-	title = nil,
-	grassPitImage = nil
+    title = nil,
+    grassPitImage = nil
 }
 
 music = {
-	menu = nil,
-	hunting = nil,
-	village = nil
+    menu = nil,
+    hunting = nil,
+    village = nil
 }
 
 sounds = {
-	start = nil,
-	hunt = nil,
-	village = nil
+    start = nil,
+    hunt = nil,
+    village = nil
 }
 
 data = {
-	spirits = {
-		love = 0,
-		wealth = 0,
-		success = 0,
-		study = 0
-	},
-	villagers = {}
+    spirits = {
+        love = 0,
+        wealth = 0,
+        success = 0,
+        study = 0
+    },
+    villagers = {}
 }
 
 function reset()
-	data = {
-		spirits = {
-			love = 0,
-			wealth = 0,
-			success = 0,
-			study = 0
-		},
-		villagers = {}
-	}
-	gameState:reset()
-	createVillagers()
+    data = {
+        spirits = {
+            love = 0,
+            wealth = 0,
+            success = 0,
+            study = 0
+        },
+        villagers = {}
+    }
+    gameState:reset()
+    createVillagers()
 end
 
+local function createButtons()
+    local buttonW, buttonH = 86, 86
+    local margin = 16
+    -- buttons:setDebug(true)
+    buttons:setFont(love.graphics.newFont(46))
+    touchButtons.button_A = buttons:createButton({
+        x = love.graphics.getWidth() - margin * 2 - buttonW,
+        y = love.graphics.getHeight() - margin * 2 - buttonH,
+        w = buttonW,
+        h = buttonH,
+        label = "A"
+    })
+end
 -- load game
 function love.load()
-	--love.graphics.setDefaultFilter("nearest", "nearest")
-	--fonts.default = love.graphics.newImageFont('assets/fonts/unispirits_hard.png', 'ÉÈÁÀÒÓÙÚÌÍ$úàáèéòóù}§{()[]jl£Q±p¢ygqjíì¾½¼W€&CDEFGHKMNORSTUVXYZ\\@¥©P0#÷*+/2345689AB?bJd7hkLt><1fli!¦|wmxasceuvnozr«=»,:″ˆ"\'′_- .', -1)
-	fonts.medium = love.graphics.newImageFont('assets/fonts/comm_hard.png', 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÉÈÍÌÓÒÚÙabcdefghijklmnopqrstuvwxyzáàéèíìóòúù0123456789$£€¥()[]{}±&\\/©#*+-=:;?!><\'_",. ', -1)
-	fonts.medium:setLineHeight(0.9)
-	love.graphics.setFont(fonts.medium)
+    local coef = love.graphics.getWidth() / love.graphics.getHeight()
+    canvasSize.x = math.floor(canvasSize.y * coef)
+    -- print("Screen canvas changed to:", canvasSize)
+    createButtons()
+    joystick:setRadius(64)
 
-	globals.inventory = Inventory(fonts.medium)
-	globals.inventory.x, globals.inventory.y = 0, 0
+    --love.graphics.setDefaultFilter("nearest", "nearest")
+    --fonts.default = love.graphics.newImageFont('assets/fonts/unispirits_hard.png', 'ÉÈÁÀÒÓÙÚÌÍ$úàáèéòóù}§{()[]jl£Q±p¢ygqjíì¾½¼W€&CDEFGHKMNORSTUVXYZ\\@¥©P0#÷*+/2345689AB?bJd7hkLt><1fli!¦|wmxasceuvnozr«=»,:″ˆ"\'′_- .', -1)
+    fonts.medium = love.graphics.newImageFont('assets/fonts/comm_hard.png', 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÉÈÍÌÓÒÚÙabcdefghijklmnopqrstuvwxyzáàéèíìóòúù0123456789$£€¥()[]{}±&\\/©#*+-=:;?!><\'_",. ', -1)
+    fonts.medium:setLineHeight(0.9)
+    love.graphics.setFont(fonts.medium)
 
-	globals.inspector = UIInspector(fonts.medium)
-	globals.inspector.x, globals.inspector.y = 160, 240 - 27
+    globals.inventory = Inventory(fonts.medium)
+    globals.inventory.x, globals.inventory.y = 0, 0
 
-	globals.textbox = TextBox(fonts.medium)
-	globals.textbox.x, globals.textbox.y = 160, 120
+    globals.inspector = UIInspector(fonts.medium)
+    globals.inspector.x, globals.inspector.y = canvasSize.x * 0.5, 240 - 27
 
-	--globals.fadeblack = FadeBlack(fonts.medium)
-	--globals.fadeblack.x, globals.fadeblack.y = 160, 120
+    globals.textbox = TextBox(fonts.medium)
+    globals.textbox.x, globals.textbox.y = canvasSize.x * 0.5, canvasSize.y * 0.5
 
-	globals.statement = StatementLabel(fonts.medium)
+    --globals.fadeblack = FadeBlack(fonts.medium)
+    --globals.fadeblack.x, globals.fadeblack.y = 160, 120
 
-	globals.omamori = OmamoriDisplayer()
+    globals.statement = StatementLabel(fonts.medium)
 
-	assets.title = love.graphics.newImage('assets/images/title_screen.png')
-	assets.grassPitImage = love.graphics.newImage('assets/images/grass_pit.png')
+    globals.omamori = OmamoriDisplayer()
 
-	music.menu = love.audio.newSource("assets/music/menu.ogg", "stream")
-	music.menu:setLooping(true)
-	music.hunting = love.audio.newSource("assets/music/hunting.ogg", "stream")
-	music.hunting:setLooping(true)
-	music.village = love.audio.newSource("assets/music/village.ogg", "stream")
-	music.village:setLooping(true)
+    assets.title = love.graphics.newImage('assets/images/title_screen.png')
+    assets.grassPitImage = love.graphics.newImage('assets/images/grass_pit.png')
 
-	sounds.start = love.audio.newSource("assets/sounds/start.ogg", "static")
-	sounds.hunt = love.audio.newSource("assets/sounds/hunt.ogg", "static")
-	sounds.village = love.audio.newSource("assets/sounds/village.ogg", "static")
+    music.menu = love.audio.newSource("assets/music/menu.ogg", "stream")
+    music.menu:setLooping(true)
+    music.hunting = love.audio.newSource("assets/music/hunting.ogg", "stream")
+    music.hunting:setLooping(true)
+    music.village = love.audio.newSource("assets/music/village.ogg", "stream")
+    music.village:setLooping(true)
 
-	canvas = love.graphics.newCanvas(320, 240)
+    sounds.start = love.audio.newSource("assets/sounds/start.ogg", "static")
+    sounds.hunt = love.audio.newSource("assets/sounds/hunt.ogg", "static")
+    sounds.village = love.audio.newSource("assets/sounds/village.ogg", "static")
 
-	love.math.setRandomSeed(love.timer.getTime())
+    canvas = love.graphics.newCanvas(canvasSize.x, canvasSize.y)
 
-	createVillagers()
+    love.math.setRandomSeed(love.timer.getTime())
 
-	gameState = ScreenManager(canvas)
+    createVillagers()
 
-	globals.fadeblack = gameState.fadeblack
+    gameState = ScreenManager(canvas)
 
-	gameState:register('/', TitleScreen)
-	gameState:register('field', FieldScreen)
-	gameState:register('village', VillageScreen)
+    globals.fadeblack = gameState.fadeblack
 
-	gameState:view('/')
+    gameState:register('/', TitleScreen)
+    gameState:register('field', FieldScreen)
+    gameState:register('village', VillageScreen)
+
+    gameState:view('/')
 end
 
 local function shuffle(tbl)
@@ -156,29 +181,29 @@ local function shuffle(tbl)
 end
 
 function createVillagers()
-	local types = { "love", "success", "study", "wealth" }
-	local amount = 18
+    local types = { "love", "success", "study", "wealth" }
+    local amount = 18
 
-	types = shuffle(types)
+    types = shuffle(types)
 
-	local numbers = {
-		[types[1]] = 8,
-		[types[2]] = 6,
-		[types[3]] = 4
-	}
+    local numbers = {
+        [types[1]] = 8,
+        [types[2]] = 6,
+        [types[3]] = 4
+    }
 
-	local vNumbers = {
-		{ [types[1]] = 1, [types[2]] = 2 },
-		{ [types[1]] = 2, [types[3]] = 1 },
-		{ [types[2]] = 2, [types[1]] = 1 },
-		{ [types[2]] = 2, [types[1]] = 1 },
-		{ [types[1]] = 2, [types[3]] = 1 },
-		{ [types[3]] = 2, [types[1]] = 1 },
-	}
-	vNumbers = shuffle(vNumbers)
+    local vNumbers = {
+        { [types[1]] = 1, [types[2]] = 2 },
+        { [types[1]] = 2, [types[3]] = 1 },
+        { [types[2]] = 2, [types[1]] = 1 },
+        { [types[2]] = 2, [types[1]] = 1 },
+        { [types[1]] = 2, [types[3]] = 1 },
+        { [types[3]] = 2, [types[1]] = 1 },
+    }
+    vNumbers = shuffle(vNumbers)
 
 
-	data.villagers = {
+    data.villagers = {
 
 Villager('maleAdults', 1, 2,
 "It's a windy day, I'm not\nsure anyone will come...",
