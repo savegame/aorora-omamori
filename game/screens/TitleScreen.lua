@@ -45,7 +45,7 @@ function TitleScreen:draw()
 
     love.graphics.draw(assets.title, titlePos.x, titlePos.y, 0, titlePos.scale, titlePos.scale)
 
-    love.graphics.printf("Press Anything", canvasSize.x * 0.5 - 80, canvasSize.y * 0.8, 160, "center")
+    love.graphics.printf("Нажмите А что бы продолжить", canvasSize.x * 0.5 - 80, canvasSize.y * 0.8, 160, "center")
 
     love.graphics.pop()
     -- globals.fadeblack:draw()
@@ -61,7 +61,8 @@ function TitleScreen:input(event)
         gameState:doFadeOutMusic()
         local c = globals.fadeblack:show()
         c:push(chain.Wait(1.0))
-        c:push(globals.fadeblack:dialog("4 days, 3 nights.\n\nA village and its people."))
+        c:push(globals.fadeblack:dialog("4 дня, 3 ночи.\n\nДеревня и ее жители."))
+        -- c:push(globals.fadeblack:dialog("4 days, 3 nights.\n\nA village and its people."))
         c:push(globals.fadeblack:hideDialog())
         c:push(chain.Wait(1.5))
         c:push(chain.Instant(function()

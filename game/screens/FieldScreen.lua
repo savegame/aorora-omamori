@@ -68,15 +68,15 @@ function FieldScreen:init(ScreenManager)
 	self.night = 0
 
 	self.statements = {
-		"Forest: 1st Night",
-		"Forest: 2nd Night",
-		"Forest: Final Night"
+		"Лес: Первая ночь",
+		"Лес: Вторая ночь",
+		"Лес: Последняя ночь"
 	}
 
 	self.endStatements = {
-		"1st Night: ",
-		"2nd Night: ",
-		"Final Night: "
+		"Первая ночь: ",
+		"Вторая ночь: ",
+		"Последняя ночь: "
 	}
 end
 
@@ -187,8 +187,16 @@ function FieldScreen:update(dt)
 		sounds.hunt:play()
 		player.controllable = false
 
-		local c = globals.statement:show(self.endStatements[self.night]
-			..spiritsCaught.. " Spirit".. (spiritsCaught ~= 1 and "s" or "")  .." Caught")
+		local statementText = self.endStatements[self.night]
+		..spiritsCaught
+		if spiritsCaught == 1 then
+			statementText = statementText .. " Дух Пойман"
+		elseif spiritsCaught < 5 then 
+			statementText = statementText .. " Духа Поймано"
+		else
+			statementText = statementText .. " Духов Поймано"
+		end
+		local c = globals.statement:show(statementText)
 		c:push(chain.Instant(function()
 			gameState:transition("village")
 		end))

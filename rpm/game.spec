@@ -5,7 +5,7 @@
 Name:       %{_app_orgname}.%{_app_appname}
 Summary:    Omamori for AuroraOS
 Release:    1
-Version:    1.0.0
+Version:    1.1.0
 Group:      Amusements/Games
 License:    BSD3
 Source0:    %{name}.tar.gz
@@ -73,7 +73,7 @@ make DESTDIR=`pwd` install
 popd 
 
 pushd build/%{_arch}/LuaJIT
-make -j`nproc`
+make CFLAGS="-fPIC" -j`nproc`
 popd
 # update scripts
 pushd love/src/scripts

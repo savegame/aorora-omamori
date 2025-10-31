@@ -48,7 +48,7 @@ function Villager:init(imageSet, index, spawnPoint,
   self.interactable = {
     type = "interactable",
     text = function()
-      return self:meetsRequirements() and self.active and "Give" or "Listen"
+      return self:meetsRequirements() and self.active and "Отдать" or "Выслушать"
     end,
     x = 0, y = 0,
     width = 20,

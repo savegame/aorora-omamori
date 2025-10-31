@@ -121,7 +121,8 @@ function love.load()
 
     --love.graphics.setDefaultFilter("nearest", "nearest")
     --fonts.default = love.graphics.newImageFont('assets/fonts/unispirits_hard.png', 'ÉÈÁÀÒÓÙÚÌÍ$úàáèéòóù}§{()[]jl£Q±p¢ygqjíì¾½¼W€&CDEFGHKMNORSTUVXYZ\\@¥©P0#÷*+/2345689AB?bJd7hkLt><1fli!¦|wmxasceuvnozr«=»,:″ˆ"\'′_- .', -1)
-    fonts.medium = love.graphics.newImageFont('assets/fonts/comm_hard.png', 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÉÈÍÌÓÒÚÙabcdefghijklmnopqrstuvwxyzáàéèíìóòúù0123456789$£€¥()[]{}±&\\/©#*+-=:;?!><\'_",. ', -1)
+    fonts.medium = love.graphics.newImageFont('assets/fonts/arial_black_no_cleartype.png', 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяЁёABCDEFGHIJKLMNOPQRSTUVWXYZAAEEIIOOUUabcdefghijklmnopqrstuvwxyzaaeeiioouu0123456789$?€?()[]{}±&\\/©#*+-=:;?!><\'_",. ', -1)
+    -- fonts.medium = love.graphics.newImageFont('assets/fonts/comm_hard.png', 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÉÈÍÌÓÒÚÙabcdefghijklmnopqrstuvwxyzáàéèíìóòúù0123456789$£€¥()[]{}±&\\/©#*+-=:;?!><\'_",. ', -1)
     fonts.medium:setLineHeight(0.9)
     love.graphics.setFont(fonts.medium)
 
@@ -206,243 +207,240 @@ function createVillagers()
     data.villagers = {
 
 Villager('maleAdults', 1, 2,
-"It's a windy day, I'm not\nsure anyone will come...",
+"Ветреный день, я не\nуверен, что кто-то придет...",
 
-[[Hachiro recalls his father name, thinking
-about how he raised him with sacrifice.
+[[Хатиро вспоминает имя своего отца, думая
+о том, как он воспитывал его с жертвуя многим.
 
-His father was a humble merchant,
-selling primary goods to poor
-people for little money.
+Его отец был скромным торговцем,
+продающим основные товары бедным
+людям за небольшие деньги.
 
-He has now inherited his job,
-but doesn't feel up to grow his
-children the same way.]],
+Теперь он унаследовал его работу,
+но не чувствует себя способным растить
+своих детей тем же способом.]],
 
-"Oh, is that for me?",
+"О, это для меня?",
 
-[[Hachiro looks at the amulet with skepticism.
-However, holding it in his hands
-moves something inside him.
+[[Хатиро смотрит на амулет скептически.
+Однако, держа его в руках,
+что-то внутри него шевельнулось.
 
-He thanks you and leaves.]],
+Он благодарит тебя и уходит.]],
 
-[[Hachiro started thinking about his
-father as an inspiration to work even
-harder than before.
+[[Хатиро начал думать о своем
+отце как об источнике вдохновения
+и стал работы усерднее, чем раньше.
 
-Over the months, his efforts were rewarded.
-He now remembers his father with a smile
-on his face, thanking him for doing its best.
+За месяцы его усилия были вознаграждены.
+Теперь он вспоминает своего отца с улыбкой
+на лице, благодаря его за то,
+что тот сделал всё возможное.
 
-He became the best-known merchant in
-the village and child support
-was no longer a concern.]],
-
+Он стал самым известным торговцем в
+деревне, и растить своих детей
+больше не было проблемой.]],
 4, vNumbers[1]),
 
 
+
 Villager('maleElders', 1, 5,
-"I miss the good old days...",
+"Я скучаю по старым\nдобрым временам...",
 
-[[Senichi mentions how he always wanted
-to be a hero for his grandchild.
+[[Сеничи рассказывает, как всегда
+мечтал стать героем для своего внука.
 
-He says he tried hard, even succeeding in
-his grandson's childhood.
+Он говорит, что очень старался и даже
+преуспел в этом во времена детства внука.
 
-Things have changed, his nephew no longer
-respects him as he used to, and this
-leaves him heartbroken.]],
+Но всё изменилось: внук больше не уважает
+его, как прежде, и это разбивает старику сердце.]],
 
-"What do you have there,\nyoung man?",
+"Что у тебя там,\nмолодой человек?",
 
-[[Senichi feels a little surprised seeing
-the amulet you're giving him.
+[[Сеничи чувствует лёгкое удивление, увидев
+амулет, который ты ему даришь.
 
-It was the type of thing he used to
-give to his nephew to encourage him.
+Это был такой же амулет, который он раньше
+давал своему племяннику, чтобы порадовать его.
 
-He smiles at you and walks away.]],
+Он улыбается тебе и уходит.]],
 
-[[Senichi learned to be the best supportive
-grandfather for his nephew, sharing
-his knowledge, his widsom and showing him
-how much he can learn from him.
+[[Сеничи научился быть лучшим
+дедушкой для своего внука, делясь
+своими знаниями, мудростью и показывая ему,
+сколько он может от него узнать.
 
-He became a hero again.
-The only type of hero that truly exists.]],
+Он снова стал героем. Единственным типом героя, 
+который действительно существует.]],
 
 1, vNumbers[2]),
 
 
 Villager('femaleAdults', 1, 1,
-"Just another morning.\n...",
+"Обычное утро.\n...",
 
-[[Hana doesn't talk much.
+[[Хана не много говорит.
 
-The only things she expresses are
-loneliness and inadequacy.
+Единственное, что она выражает — это
+одиночество и неполноценность.
 
-Her mother is the only one who speaks
-to her, solely to hold her doing
-nothing against her.
+Её мать — единственная, кто говорит
+с ней, исключительно чтобы упрекать её за то,
+что она ничего не делает.
 
-She's not willing to go on with things
-the way they are.]],
+Она не хочет продолжать жить
+таким образом.]],
 
-"Hm? What? For me?",
+"Хм? Что? Для меня?",
 
-[[The amulet initially feels
-meaningless to the girl.
+[[Амулет сначала кажется
+бессмысленным для девушки.
 
-Then Hana realizes it was a gift.
-From you, to her.
-Because you care.
+Затем Хана понимает, что это подарок.
+От тебя, для неё.
+Потому что ты заботишься.
 
-Suddenly, many of her forgotten
-memories go through her mind.
+Внезапно многие из её забытых
+воспоминаний проходят через её разум.
 
-She doesn't know what to say,
-gives a hesitant goodbye and leaves.]],
+Она не знает, что сказать,
+прощается нерешительно и уходит.]],
 
-[[Hana has learned to recognize how
-worried people around her are.
+[[Хана научилась распознавать, как
+обеспокоены люди вокруг неё.
 
-She restored her ability to see
-affection in people and made new
-friends.
+Она восстановила свою способность видеть
+привязанность в людях и завела новых
+друзей.
 
-She began her journey to like herself.
+Она начала свой путь к принятию себя.
 
-She realized her life matters.]],
+Она поняла, что её жизнь имеет значение.]],
 
 3, vNumbers[3]),
 
 
 Villager('femaleElders', 1, 4,
-"How I wish things were\ngoing well...",
+"Как я желаю, чтобы всё\nшло хорошо...",
 
-[[Yoko has a tired expression,
-result of many sleepless nights.
+[[Юко имеет усталый вид,
+результат многих бессонных ночей.
 
-His nephew has been sick in bed
-for weeks and no doctor can visit him.
+Её племянник болен в постели
+уже несколько недель, и ни один врач
+не может его навестить.
 
-She's questioning his figure as the
-child only caregiver.
+Она сомневается в своей роли
+единственного опекуна ребёнка.
 
-A tear runs down her face as she says she
-wouldn't know what to do
-if things go wrong.]],
+Слеза стекает по её лицу, когда она говорит,
+что не знает, что делать,
+если что-то пойдёт не так.]],
 
-"For me? Owh, you really\nare sweet...",
+"Для меня? Ох, ты действительно\nмилый...",
 
-[[Yoko looks at what you gave her
-with a suffering smile, appreciating
-that you want to help her somehow.
+[[Юко смотрит на то, что ты ей дал
+с страдающей улыбкой, ценя
+то, что ты хочешь как-то ей помочь.
 
-Your action makes her think that it is
-important to do everything you can,
-with the energy you have, and all the joy
-you have left.
+Твоё действие заставляет её подумать, 
+что важно делать всё, что можешь,
+с энергией, которая у тебя есть, и всей радостью,
+которая у тебя осталась.
 
-She leaves, thanking you again
-for your kindness.]],
+Она уходит, снова благодаря тебя
+за твою доброту.]],
 
-[[Yoko stopped acting as though the worst
-was going to happen and began to behave
-as her nephew was relentlessly recovering.
+[[Юко перестала вести себя так, будто худшее
+произойдёт, и начала вести себя
+так, будто её племянник неуклонно выздоравливает.
 
-A new energy filled his home, which
-inevitably influenced the energy of those
-around her.
+Новая энергия наполнила её дом, что
+неизбежно повлияло на энергию тех,
+кто был вокруг неё.
 
-Her grandson recovered.
-She's now very old, and her last wish
-is to make him ready to face life alone.]],
-
+Её внук выздоровел.
+Она теперь очень стара, и её последнее желание
+— подготовить его к самостоятельной жизни.]],
 3, vNumbers[4]),
 
 
 Villager('maleAdults', 2, 6,
-"Is this really ok?\nI'm not sure.",
+"Это действительно нормально?\nЯ не уверен.",
 
-[[Masayuki says he loved a girl.
-She was beautiful, kind, intelligent.
+[[Масайуки говорит, что любил девушку.
+Она была красивой, доброй, умной.
 
-One day, when he was at the peak of
-his love for her, she passed away.
+Однажды, когда он был на пике
+своей любви к ней, она умерла.
 
-He is now torn between the sincere need
-to live freely and the inner obligation
-to remain faithful to his first true love.]],
+Теперь он разрывается между искренней потребностью
+жить свободно и внутренней обязанностью
+оставаться верным своей первой настоящей любви.]],
 
-"A gift? Well, I have\nno reason to refuse. ",
+"Подарок? Ну, у меня\nнет причин отказываться. ",
 
-[[Masayuki accepts the amulet with joy.
+[[Масайуки принимает амулет с радостью.
 
-He realizes that this is the kind of
-gratitude and happiness he wants to feel
-and make others feel as well.
+Он понимает, что это тот тип
+благодарности и счастья, который он хочет чувствовать
+и заставлять других чувствовать тоже.
 
-He undestands he is not able
-to do it in his state.
+Он осознаёт, что не способен
+сделать это в своём состоянии.
 
-He returns home, thanking you for letting
-him understand what he really wants.]],
+Он возвращается домой, благодаря тебя за то, что
+ты помог ему понять, чего он действительно хочет.]],
 
-[[Masayuki began to think about
-his true desires and what he wanted
-to experience in life.
+[[Масайуки начал думать о
+своих истинных желаниях и о том, чего он хотел
+испытать в жизни.
 
-He wanted to see smiles on people's faces,
-and to love, to love again.
+Он хотел видеть улыбки на лицах людей,
+и любить, любить снова.
 
-He'll always remember his beloved as the
-one who finally allowed him to love for
-the first time and forever.]],
+Он всегда будет помнить свою любимую как ту,
+которая наконец позволила ему полюбить
+впервые и навсегда.]],
 
 2, vNumbers[5]),
 
 
 Villager('femaleChildren', 1, 7,
 "...",
+[[Она берёт свою тетрадь и начинает писать.
 
-[[She takes her notebook and starts writing.
+Закончив, она передаёт её тебе с
+искренней улыбкой.
 
-Once finished, she hands it to you with
-a candid smile.
+Кэйко глухонемая, но всё ещё пытается
+ценить жизнь и любить,
+в частности, одного мальчика. Ты замечаешь это, когда
+читаешь его имя, её сердце бьётся чаще.
 
-Keiko is deaf-mute, but still trying to
-appreciate life and to love,
-a boy in particular. You notice that when
-you read his name her heart pounds.
-
-However, she also thinks she doesn't stand
-a chance in her condition.]],
+Однако, она также думает, что у неё нет
+шансов в её состоянии.]],
 
 "...",
 
-[[Keiko takes the amulet and suddenly
-starts to cry.
+[[Кэйко берёт амулет и внезапно
+начинает плакать.
+Придя в себя, она пишет:
 
-After getting back on her feet, she writes:
+"Спасибо тебе."
 
-"Thank you."
+Затем она убегает, сдерживая слёзы.]],
 
-She then runs away holding back the tears.]],
+[[Кэйко подошла к мальчику, который ей нравится.
 
-[[Keiko has approached the boy she likes.
+Сначала это было трудно, и она часто чувствовала
+себя глупо.
+Однако, её искреннее и настоящее
+чувство вознесло их отношения к небесам.
 
-Initially it was hard and she often felt
-ridiculous.
-However, her sincere and true
-affection carried their relationship up to
-the sky.
-
-They are now learning to live
-from each other's life.]],
+Теперь они учатся жить
+жизнью друг друга.]],
 
 1, vNumbers[6])
   }

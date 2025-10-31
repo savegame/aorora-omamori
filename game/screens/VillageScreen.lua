@@ -43,10 +43,10 @@ function VillageScreen:init(ScreenManager)
   self.day = 0
 
   self.statements = {
-    "Village: 1st Day",
-    "Village: 2nd Day",
-    "Village: 3rd Day",
-    "Village: Final Day"
+    "Деревня: Первый день",
+    "Деревня: Второй день",
+    "Деревня: Третий день",
+    "Деревня: Последний день"
   }
 end
 
@@ -87,7 +87,7 @@ function VillageScreen:activate()
   local portal = {
     type = "interactable",
     text = function()
-      return self.day < 4 and "To Forest" or "Depart"
+      return self.day < 4 and "Идти в лес" or "Уйти"
     end,
     x = field.portal.x, y = field.portal.y,
     width = field.portal.width,
@@ -107,12 +107,12 @@ function VillageScreen:activate()
           local finale = globals.fadeblack:show()
           finale:push(chain.Wait(1.0))
           finale:push(globals.fadeblack:dialog(
-[[Time has come to leave the village.]]))
+[[Пришло время покинуть деревню.]]))
           finale:push(globals.fadeblack:hideDialog())
           finale:push(globals.fadeblack:dialog(
-[[Were you able to help people?
+[[Тебе удалось помочь людям?
 
-A small gesture, that's all that is needed.]]))
+Маленький жест — вот и всё, что нужно.]]))
           finale:push(globals.fadeblack:hideDialog())
           finale:push(chain.Wait(1.5))
 
@@ -124,7 +124,7 @@ A small gesture, that's all that is needed.]]))
           end
           if helped > 0 then
             finale:push(globals.fadeblack:dialog(
-[[As time went by...]]))
+[[По мере того как время шло...]]))
             finale:push(globals.fadeblack:hideDialog())
             finale:push(chain.Wait(1.5))
         end
@@ -139,13 +139,13 @@ A small gesture, that's all that is needed.]]))
           finale:push(chain.Wait(1.0))
 
           finale:push(globals.fadeblack:dialog(
-[[Let the people you help be your Omamori.]]))
+[[Пусть люди, которым ты помогаешь, станут твоим Омамори.]]))
           finale:push(globals.fadeblack:hideDialog())
 
           finale:push(chain.Wait(2.5))
 
           finale:push(globals.fadeblack:dialog(
-[["Now, Life is Living You."]]))
+[["Теперь, Жизнь Живёт Тобой."]]))
           finale:push(globals.fadeblack:hideDialog())
 
           finale:push(chain.Wait(2.5))

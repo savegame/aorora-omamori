@@ -1,5 +1,6 @@
 local class = require('lib.hump.class')
 local chain = require('lib.chain')
+local utf8 = require("utf8")
 
 
 local FadeBlack = class {}
@@ -18,10 +19,22 @@ local Dialog = class { __includes = chain.Chain,
   end,
 
 	onUpdate = function(self, dt)
+    -- print("update ", self.text)
 		self.currentCharacters = self.currentCharacters + dt * self.charsPerSecond
-    self.textbox.text = string.sub(self.text, 0, math.floor(self.currentCharacters))
+    local charNumber = math.floor(self.currentCharacters)
+    local bytesOffset = utf8.offset(self.text, charNumber)
+    if charNumber == 0 then
+      bytesOffset = 0
+    elseif bytesOffset then
+      bytesOffset = charNumber == 0 and 0 or (bytesOffset - 1)
+    else 
+      bytesOffset = string.len(self.text)
+    end
+    -- print(("Char pos %1i and bytes offset %1i"):format(charNumber, bytesOffset))
+    self.textbox.text = string.sub(self.text, 0, bytesOffset)
+    -- print("textbox text: ", self.textbox.text)
     local isDownA = love.keyboard.isDown(keys.A) or touchButtons.button_A.pressed
-    if isDownA and self.currentCharacters >= string.len(self.text) then
+    if isDownA and self.currentCharacters >= utf8.len(self.text) then
       self:complete()
     end
 	end,
